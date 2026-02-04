@@ -25,6 +25,16 @@ document.addEventListener("DOMContentLoaded", () => {
           <p>${details.description}</p>
           <p><strong>Schedule:</strong> ${details.schedule}</p>
           <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
+
+          <div class="participants">
+            <div class="avatar-row">
+              ${renderAvatars(details.participants)}
+            </div>
+            <button type="button" class="toggle-participants" aria-expanded="false">Mostrar participantes</button>
+            <ul class="participant-list hidden" aria-hidden="true">
+              ${details.participants.map(p => `<li>${p}</li>`).join("")}
+            </ul>
+          </div>
         `;
 
         activitiesList.appendChild(activityCard);
@@ -34,6 +44,20 @@ document.addEventListener("DOMContentLoaded", () => {
         option.value = name;
         option.textContent = name;
         activitySelect.appendChild(option);
+      });
+
+      // Añade listeners al botón para expandir/colapsar la lista de participantes
+      document.querySelectorAll(".toggle-participants").forEach(button => {
+        button.addEventListener("click", () => {
+          const container = button.closest(".participants");
+          const listEl = container.querySelector(".participant-list");
+          const expanded = button.getAttribute("aria-expanded") === "true";
+
+          button.setAttribute("aria-expanded", String(!expanded));
+          button.textContent = expanded ? "Mostrar participantes" : "Ocultar participantes";
+          listEl.classList.toggle("hidden");
+          listEl.setAttribute("aria-hidden", String(expanded));
+        });
       });
     } catch (error) {
       activitiesList.innerHTML = "<p>Failed to load activities. Please try again later.</p>";
@@ -84,3 +108,25 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initialize app
   fetchActivities();
 });
+
+// Helper: genera HTML de avatares (hasta 5) y contador "+N"
+function renderAvatars(participants) {
+  const maxVisible = 5;
+  const visible = participants.slice(0, maxVisible);
+  const more = participants.length - visible.length;
+
+  const avatars = visible
+    .map(p => `<span class="avatar" title="${p}">${initial(p)}</span>`)
+    .join("");
+
+  const moreBadge = more > 0 ? `<span class="avatar more" title="${more} más">+${more}</span>` : "";
+
+  return avatars + moreBadge;
+}
+
+// Helper: extrae inicial a partir del email (before @)
+function initial(email) {
+  const name = email.split("@")[0] || "";
+  const first = name.split(/[.\-_]/)[0] || "";
+  return (first.charAt(0) || "").toUpperCase();
+}
