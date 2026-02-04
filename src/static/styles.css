@@ -142,3 +142,103 @@ footer {
   padding: 20px;
   color: #666;
 }
+
+.participants {
+  margin-top: 12px;
+}
+
+.avatar-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+/* Avatares circulares superpuestos */
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8e99f3, #5c6bc0);
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  margin-left: -10px; /* superposición */
+}
+
+/* Primer avatar no superpone margen negativo */
+.avatar-row .avatar:first-child {
+  margin-left: 0;
+}
+
+/* Badge de +N */
+.avatar.more {
+  background: #e0e7ff;
+  color: #1a237e;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+/* Botón de mostrar/ocultar */
+.toggle-participants {
+  background: transparent;
+  color: #1a237e;
+  border: 1px solid #d3d9ff;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.15s, transform 0.08s;
+}
+.toggle-participants:hover {
+  background-color: #eef1ff;
+  transform: translateY(-1px);
+}
+
+/* Lista colapsable */
+.participant-list {
+  margin-top: 10px;
+  padding-left: 16px;
+  max-height: 200px;
+  overflow: auto;
+  transition: max-height 0.25s ease;
+  border-left: 2px solid #f0f2ff;
+  padding-bottom: 6px;
+}
+.participant-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  font-size: 14px;
+  color: #333;
+  border-bottom: 1px dashed #f1f1f1;
+}
+
+.remove-participant {
+  background: transparent;
+  color: #c62828;
+  border: none;
+  font-weight: bold;
+  margin-left: 10px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.remove-participant:hover {
+  background: #ffebee;
+}
+.participant-list.hidden {
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  overflow: hidden;
+  border-left: none;
+}
