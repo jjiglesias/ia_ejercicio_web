@@ -211,10 +211,29 @@ footer {
   padding-bottom: 6px;
 }
 .participant-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
   padding: 6px 0;
   font-size: 14px;
   color: #333;
   border-bottom: 1px dashed #f1f1f1;
+}
+
+.remove-participant {
+  background: transparent;
+  color: #c62828;
+  border: none;
+  font-weight: bold;
+  margin-left: 10px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.remove-participant:hover {
+  background: #ffebee;
 }
 .participant-list.hidden {
   max-height: 0;
